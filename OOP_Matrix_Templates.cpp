@@ -253,7 +253,7 @@ int main()
     c1.show();
     cout << endl;
     
-    cout << "Matrix 2+ randomFill" << endl;
+    cout << "Matrix 2 + randomFill" << endl;
     Matrix<int> c2(rows, cols);
     c2.randomFill();
     c2.show();
