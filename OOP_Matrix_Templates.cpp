@@ -20,6 +20,7 @@ public:
     void fill();
     void randomFill(); 
     Matrix& operator=(const Matrix& other);
+    Matrix operator+(const Matrix& other) const;
     
 };
 
@@ -136,18 +137,49 @@ Matrix<T>& Matrix<T>::operator=(const Matrix& other)
     return *this;
 }
 
+template<typename T>
+Matrix<T>Matrix<T>::operator+(const Matrix& other) const
+{
+    if (arr == nullptr || other.arr == nullptr)
+    {
+        cout << "Matrix is not initialized" << endl;
+        return Matrix();
+    }
 
+    if (rows != other.rows || cols != other.cols)
+    {
+        cout << "Matrix size do not match" << endl;
+        return Matrix();
 
+    }
+
+    Matrix result(rows, cols);
+
+    for (int i = 0; i < rows; i++)
+        for (int j = 0; j < cols; j++)
+            result.arr[i][j] = arr[i][j] + other.arr[i][j];
+
+    return result;
+}
 
 int main()
 {
     srand(time(0));
-    
+
     int rows = 5;
     int cols = 5;
 
-    Matrix<int> c(rows, cols);
-    c.show();
-    c.randomFill();
-    c.show();
+    Matrix<int> c1(rows, cols);
+    c1.randomFill();
+    c1.show();
+    cout << endl;
+    Matrix<int> c2(rows, cols);
+    c2.randomFill();
+    c2.show();
+    cout << endl;
+
+    Matrix<int> c3;
+    c3 = c1 + c2;
+    c3.show();
+    
 }
