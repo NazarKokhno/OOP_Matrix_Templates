@@ -14,11 +14,13 @@ private:
 public:
     Matrix() : arr(nullptr), rows(0), cols(0) {};
     Matrix(int r, int c);
+    Matrix(const Matrix& other);
     ~Matrix();
     void show() const;
     void fill();
-    void randomFill();
-
+    void randomFill(); 
+    Matrix& operator=(const Matrix& other);
+    
 };
 
 template<typename T>
@@ -35,6 +37,19 @@ Matrix<T>::~Matrix()
     for (int i = 0; i < rows; i++)
         delete[] arr[i];
     delete[] arr;
+}
+
+
+template<typename T>
+Matrix<T>::Matrix(const Matrix& other) :rows(other.rows), cols(other.cols)
+{
+    arr = new T * [rows];
+    for (int i = 0; i < rows; i++)
+    {
+        arr[i] = new T[cols];
+        for (int j = 0; j < cols; j++)
+            arr[i][j] = other.arr[i][j];
+    }
 }
 
 template<typename T>
@@ -88,6 +103,39 @@ void Matrix<T>::randomFill()
         cout << "Matrix is not initialized!" << endl;
     }
 }
+
+template<typename T>
+Matrix<T>& Matrix<T>::operator=(const Matrix& other)
+{
+    if (this == &other)
+        return *this;
+
+
+    for (int i = 0; i < rows; i++)
+        delete[] arr[i];
+    delete[] arr;
+
+ 
+    rows = other.rows;
+    cols = other.cols;
+
+    if (other.arr == nullptr)
+    {
+        arr = nullptr;
+    }
+    else
+    {
+        arr = new T * [rows];
+        for (int i = 0; i < rows; i++)
+        {
+            arr[i] = new T[cols];
+            for (int j = 0; j < cols; j++)
+                arr[i][j] = other.arr[i][j];
+        }
+    }
+    return *this;
+}
+
 
 
 
