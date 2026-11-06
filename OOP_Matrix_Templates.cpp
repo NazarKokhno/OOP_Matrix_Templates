@@ -21,7 +21,9 @@ public:
     void randomFill(); 
     Matrix& operator=(const Matrix& other);
     Matrix operator+(const Matrix& other) const;
-    
+    Matrix operator-(const Matrix& other) const;
+    Matrix operator*(const Matrix& other) const;
+    Matrix operator/(const Matrix& other) const;
 };
 
 template<typename T>
@@ -162,6 +164,82 @@ Matrix<T>Matrix<T>::operator+(const Matrix& other) const
     return result;
 }
 
+template<typename T>
+Matrix<T>Matrix<T>::operator-(const Matrix& other) const
+{
+    if (arr == nullptr || other.arr == nullptr)
+    {
+        cout << "Matrix is not initialized" << endl;
+        return Matrix();
+    }
+
+    if (rows != other.rows || cols != other.cols)
+    {
+        cout << "Matrix size do not match" << endl;
+        return Matrix();
+
+    }
+
+    Matrix result(rows, cols);
+
+    for (int i = 0; i < rows; i++)
+        for (int j = 0; j < cols; j++)
+            result.arr[i][j] = arr[i][j] - other.arr[i][j];
+
+    return result;
+}
+
+template<typename T>
+Matrix<T>Matrix<T>::operator*(const Matrix& other) const
+{
+    if (arr == nullptr || other.arr == nullptr)
+    {
+        cout << "Matrix is not initialized" << endl;
+        return Matrix();
+    }
+
+    if (rows != other.rows || cols != other.cols)
+    {
+        cout << "Matrix size do not match" << endl;
+        return Matrix();
+
+    }
+
+    Matrix result(rows, cols);
+
+    for (int i = 0; i < rows; i++)
+        for (int j = 0; j < cols; j++)
+            result.arr[i][j] = arr[i][j] * other.arr[i][j];
+
+    return result;
+}
+
+template<typename T>
+Matrix<T>Matrix<T>::operator/(const Matrix& other) const
+{
+    if (arr == nullptr || other.arr == nullptr)
+    {
+        cout << "Matrix is not initialized" << endl;
+        return Matrix();
+    }
+
+    if (rows != other.rows || cols != other.cols)
+    {
+        cout << "Matrix size do not match" << endl;
+        return Matrix();
+
+    }
+   
+    Matrix result(rows, cols);
+
+    for (int i = 0; i < rows; i++)
+        for (int j = 0; j < cols; j++)
+            if (other.arr[i][j] != 0)
+                result.arr[i][j] = arr[i][j] / other.arr[i][j];
+    
+    return result;
+}
+
 int main()
 {
     srand(time(0));
@@ -169,17 +247,38 @@ int main()
     int rows = 5;
     int cols = 5;
 
+    cout << "Matrix 1 + randomFill" << endl;
     Matrix<int> c1(rows, cols);
     c1.randomFill();
     c1.show();
     cout << endl;
+    
+    cout << "Matrix 2+ randomFill" << endl;
     Matrix<int> c2(rows, cols);
     c2.randomFill();
     c2.show();
     cout << endl;
-
+    
     Matrix<int> c3;
+
+    cout << "operator +" << endl;
     c3 = c1 + c2;
     c3.show();
+    cout << endl;
+   
+    cout << "operator -" << endl;
+    c3 = c1 - c2;
+    c3.show();
+    cout << endl;
+
+    cout << "operator *" << endl;
+    c3 = c1 * c2;
+    c3.show();
+    cout << endl;
+
+    cout << "operator /" << endl;
+    c3 = c1 / c2;
+    c3.show();
+    cout << endl;
     
 }
