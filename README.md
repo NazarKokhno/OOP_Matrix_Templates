@@ -60,6 +60,7 @@ C.show();
 - Overloading arithmetic operators
 - Applying OOP principles
 
-## Author
+## Purpose
 
-Nazar Kokhno
+This project was created as a practical exercise to improve my understanding of C++, operator overloading, constructors, destructors, dynamic memory allocation, and object-oriented programming.
+
