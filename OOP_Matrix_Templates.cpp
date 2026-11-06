@@ -14,9 +14,12 @@ public:
 
     Matrix(int r, int c) : rows(r), cols(c)
     {
-        arr = new T * [rows];
-        for (int i = 0; i < rows; i++)
-            arr[i] = new T[cols]();
+        if (rows > 0 && cols)
+        {
+            arr = new T * [rows];
+            for (int i = 0; i < rows; i++)
+                arr[i] = new T[cols]();
+        }
     }
 
     Matrix(const Matrix& other) :rows(other.rows), cols(other.cols)
@@ -30,7 +33,7 @@ public:
         }
     }
 
-    Matrix& operator=(сonst Matrix& other)
+    Matrix& operator=(const Matrix& other)
     {
         if (this == &other)
             return *this;
